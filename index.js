@@ -3,15 +3,17 @@ function depthFirstSearch(rootNode, edges, vertices) {
   let stack = [];
 
   stack.push(rootNode);
+  visited.push(rootNode);
   while (stack.length > 0) {
     let node = stack.pop();
     if(node.discovered) continue;
 
-    visited.push(node);
-
     node.discovered = true;
     let adjacent = findAdjacent(node.name, edges, vertices);
-    adjacent.map(node => stack.push(node));
+    adjacent.map(node => {
+      visited.push(node);
+      stack.push(node);
+    });
   }
 
   return visited;
