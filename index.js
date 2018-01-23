@@ -6,41 +6,31 @@ function depthFirstSearch(edges, vertices) {
 
     while (list.length !== 0) {
         let root = list.pop()
-        results.push(root);
 
         if (!root.discovered) {
-            // results.push(root);
+            results.push(root);
             root.discovered = true;
-
             for (let i = 0; i < edges.length; i++) {
                 let e = edges[i]
 
                 if (e[0] === root.name) {
-
                     for (let n = 0; n < vertices.length; n++) {
-
-                        if (vertices[n].name === e[1]) {
+                        if (vertices[n].name === e[0] && !vertices[n].discovered) {
                             list.push(vertices[n])
                         }
                     }
                 }
                 if (e[1] === root.name) {
-
                     for (let n = 0; n < vertices.length; n++) {
-
-                        if (vertices[n].name === e[0]) {
+                        if (vertices[n].name === e[1] && !vertices[n].discovered) {
                             list.push(vertices[n])
                         }
                     }
                 }
-
             }
-
         }
-
     }
-
-    return results
+    return vertices
 }
 
 let edgesArray = [
