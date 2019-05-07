@@ -1,6 +1,19 @@
 function depthFirstSearch(rootNode, vertices, edges) {
-  let visited = []
+  let stack = []
+  stack.push(rootNode)
+  let visited = [rootNode]
 
+  while (stack.length != 0) {
+    let v = stack.pop()
+    if (!v.discovered) {
+      v.discovered = true
+      findAdjacent(v.name, vertices, edges).forEach(function(node){
+					visited.push(node)
+					stack.push(node)
+				})
+    }
+  }
+  return visited
 }
 
 function findAdjacent(nodeName,  vertices, edges){
