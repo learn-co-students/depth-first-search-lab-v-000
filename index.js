@@ -25,7 +25,7 @@ function bfs(rootNode, vertices, edges){
         let firstNode = queue.shift(); 
         visitedNodes.push(firstNode); 
         let adjacentNodes = findAdjacent(firstNode.name, vertices, edges); 
-        markDistanceAndPredecessor(firstNode, adjacentNodes)
+        markDiscovered(firstNode, adjacentNodes)
         queue = queue.concat(adjacentNodes); 
     }    
     return visitedNodes; 
@@ -43,12 +43,12 @@ function findAdjacent(verticeName, vertices, edges){
         if(verticeA == verticeName){
             let adjacentVertixIndex = findVerticeIndexByName(verticeB, vertices); 
             if (isVerticeUndiscovered(vertices[adjacentVertixIndex])) {
-                adjacentNodes.push(vertices[adjacentVertixIndex])
+                adjacentNodes.unshift(vertices[adjacentVertixIndex])
             }
         } else if(verticeB == verticeName){
             let adjacentVertixIndex = findVerticeIndexByName(verticeA, vertices); 
             if (isVerticeUndiscovered(vertices[adjacentVertixIndex])) {
-                adjacentNodes.push(vertices[adjacentVertixIndex])
+                adjacentNodes.unshift(vertices[adjacentVertixIndex])
             }
         }
      }
