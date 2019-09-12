@@ -1,33 +1,17 @@
 function depthFirstSearch(rootNode, vertices, edges){
     let queue = []; 
-    let visitedNodes = []; 
+    let visitedNodes = [rootNode]; 
     rootNode.discovered = true; 
     queue.push(rootNode); 
 
     while(queue.length != 0){
         let currentNode = queue.pop(); 
-        visitedNodes.push(currentNode); 
         let adjacentNodes = findAdjacent(currentNode.name, vertices, edges); 
         markDiscovered(currentNode, adjacentNodes)
         queue = queue.concat(adjacentNodes); 
+        visitedNodes = visitedNodes.concat(adjacentNodes); 
     }
 
-    return visitedNodes; 
-}
-
-function bfs(rootNode, vertices, edges){
-    let queue = []; 
-    let visitedNodes = []; 
-    rootNode.distance = 0; 
-    queue.push(rootNode); 
-
-    while(queue.length > 0) {
-        let firstNode = queue.shift(); 
-        visitedNodes.push(firstNode); 
-        let adjacentNodes = findAdjacent(firstNode.name, vertices, edges); 
-        markDiscovered(firstNode, adjacentNodes)
-        queue = queue.concat(adjacentNodes); 
-    }    
     return visitedNodes; 
 }
 
@@ -43,12 +27,12 @@ function findAdjacent(verticeName, vertices, edges){
         if(verticeA == verticeName){
             let adjacentVertixIndex = findVerticeIndexByName(verticeB, vertices); 
             if (isVerticeUndiscovered(vertices[adjacentVertixIndex])) {
-                adjacentNodes.unshift(vertices[adjacentVertixIndex])
+                adjacentNodes.push(vertices[adjacentVertixIndex])
             }
         } else if(verticeB == verticeName){
             let adjacentVertixIndex = findVerticeIndexByName(verticeA, vertices); 
             if (isVerticeUndiscovered(vertices[adjacentVertixIndex])) {
-                adjacentNodes.unshift(vertices[adjacentVertixIndex])
+                adjacentNodes.push(vertices[adjacentVertixIndex])
             }
         }
      }
